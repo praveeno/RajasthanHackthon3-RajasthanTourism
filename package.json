@@ -1,0 +1,21 @@
+{
+  "name": "RajasthanTourismBot",
+  "description": "This is the conversational UI representative agent for Rajasthan Tourism using `Cloud Functions for Firebase`",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Codersa - Rajasthan Hackathon 3 team",
+  "engines": {
+    "node": "~6.0"
+  },
+  "scripts": {
+    "start": "firebase serve --only functions:dialogflowFirebaseFulfillment",
+    "deploy": "firebase deploy --only functions:dialogflowFirebaseFulfillment"
+  },
+  "dependencies": {
+    "actions-on-google": "^1.5.x",
+    "firebase-admin": "^4.2.1",
+    "firebase-functions": "^0.5.7",
+    "apiai": "^4.0.3",
+    "request": "^2.83.0"
+  }
+}
