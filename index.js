@@ -45,13 +45,13 @@ function processV1Request (request, response) {
         if(duration.unit == 'day') {
           sendGoogleResponse(info);
         } else if(duration.unit == 'min' || duration.unit == 's' || duration.unit == 'h') {
-          sendGoogleResponse("a journey cant start in hours");
+          sendGoogleResponse("I appreciate your #wanderlust but Its my duty to help you get the best of your trip. So kindly plan a trip for atleast a day. You won't regret!");
         } else if(duration.unit == 'yr' || duration.unit == 'mo') {
-          sendGoogleResponse("may be you buy a house there");
+          sendGoogleResponse("ohh wow! Another fan visitor turned resident! Cheers...");
         } else if(duration.unit == 'wk') {
           sendGoogleResponse(jsonOfInfo[place][7]);
         } else {
-          sendGoogleResponse("not know your duration");
+          sendGoogleResponse("You seems uncertain about your duration");
         }
          // Send simple response to user
       } else {
@@ -59,13 +59,13 @@ function processV1Request (request, response) {
           console.log(info);
           sendResponse(info);
         } else if(duration.unit == 'min' || duration.unit == 's' || duration.unit == 'h') {
-          sendResponse("a journey cant start in hours");
+          sendResponse("I appreciate your #wanderlust but Its my duty to help you get the best of your trip. So kindly plan a trip for atleast a day. You won't regret!");
         } else if(duration.unit == 'yr' || duration.unit == 'mo') {
-          sendResponse("may be you buy a house there");
+          sendResponse("ohh wow! Another fan visitor turned resident! Cheers...");
         } else if(duration.unit == 'wk') {
           sendResponse(jsonOfInfo[place][7]);
         } else {
-          sendResponse("not know your duration");
+          sendResponse("You seems uncertain about your duration");
         }
       }
     },
