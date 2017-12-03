@@ -36,33 +36,36 @@ function processV1Request (request, response) {
     },
     'scheduler': () => {
       let place = parameters.place[0];
-      let duration = parameters.duration[0] 
+      let duration = parameters.duration[0];
+      let plaace = jsonOfInfo[place] || jsonOfInfo['default']
+      let info = plaace[duration.amount] || plaace[7];
+      info.displayText = info.speech + ' ' + info.data.join(' => ');
+      
       if (requestSource === googleAssistantRequest) {
         if(duration.unit == 'day') {
-          console.log(jsonOfInfo[place][duration.amount]);
-          sendGoogleResponse(jsonOfInfo[place][duration.amount]);
+          sendGoogleResponse(info);
         } else if(duration.unit == 'min' || duration.unit == 's' || duration.unit == 'h') {
           sendGoogleResponse("a journey cant start in hours");
         } else if(duration.unit == 'yr' || duration.unit == 'mo') {
           sendGoogleResponse("may be you buy a house there");
         } else if(duration.unit == 'wk') {
-          sendGoogleResponse(jsonOfInfo[place][duration.amount * 7])
+          sendGoogleResponse(jsonOfInfo[place][7]);
         } else {
           sendGoogleResponse("not know your duration");
         }
          // Send simple response to user
       } else {
         if(duration.unit == 'day') {
-          console.log(jsonOfInfo[place][duration.amount]);
-          sendGoogleResponse(jsonOfInfo[place][duration.amount]);
+          console.log(info);
+          sendResponse(info);
         } else if(duration.unit == 'min' || duration.unit == 's' || duration.unit == 'h') {
-          sendGoogleResponse("a journey cant start in hours");
+          sendResponse("a journey cant start in hours");
         } else if(duration.unit == 'yr' || duration.unit == 'mo') {
-          sendGoogleResponse("may be you buy a house there");
+          sendResponse("may be you buy a house there");
         } else if(duration.unit == 'wk') {
-          sendGoogleResponse(jsonOfInfo[place][duration.amount * 7])
+          sendResponse(jsonOfInfo[place][7]);
         } else {
-          sendGoogleResponse("not know your duration");
+          sendResponse("not know your duration");
         }
       }
     },
@@ -166,25 +169,16 @@ function processV1Request (request, response) {
 }
 // Construct rich response for Google Assistant (v1 requests only)
 const app = new DialogflowApp();
-const googleRichResponse = app.buildRichResponse()
-  .addSimpleResponse('This is the first simple response for Google Assistant')
-  .addSuggestions(
-    ['Suggestion Chip', 'Another Suggestion Chip'])
-    // Create a basic card and add it to the rich response
-  .addBasicCard(app.buildBasicCard(`This is a basic card.  Text in a
- basic card can include "quotes" and most other unicode characters
- including emoji 📱.  Basic cards also support some markdown
- formatting like *emphasis* or _italics_, **strong** or __bold__,
- and ***bold itallic*** or ___strong emphasis___ as well as other things
- like line  \nbreaks`) // Note the two spaces before '\n' required for a
-                        // line break to be rendered in the card
-    .setSubtitle('This is a subtitle')
-    .setTitle('Title: this is a title')
-    .addButton('This is a button', 'https://assistant.google.com/')
-    .setImage('https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png',
-      'Image alternate text'))
-  .addSimpleResponse({ speech: 'This is another simple response',
-    displayText: 'This is the another simple response 💁' });
+function sendRichGoogleResponce(title, card, no) {
+  const googleRichResponse = app.buildRichResponse()
+      .addSimpleResponse(card)
+      .addSuggestions(title)
+      .addSuggestions([title])
+      .addSuggestionLink('route', 'https://praveeno.github.io/RajasthanHackthon3-RajasthanTourism/' + no);
+      
+ 
+  app.ask(googleRichResponse);
+}
 
 const jsonOfInfo = {
     "udaipur" : {
@@ -224,41 +218,41 @@ const jsonOfInfo = {
             "data" : ["https://maps.app.goo.gl/i/xpfWL", "https://maps.app.goo.gl/i/NEJVI", "https://maps.app.goo.gl/i/E8iSO", "https://maps.app.goo.gl/i/zFi80"]
         }
     },
-    "jaipur" : {
+    "default" : {
         "1" : {
             "displayText" : "",
-            "speech" : "",
-            "data" : ""
+            "speech" : "sorry, no data",
+            "data" : []
         },
         "2" : {
             "displayText" : "",
-            "speech" : "",
-            "data" : ""
+            "speech" : "sorry, no data",
+            "data" : []
         },
         "3" : {
             "displayText" : "",
-            "speech" : "",
-            "data" : ""
+            "speech" : "sorry, no data",
+            "data" : []
         },
         "4" : {
             "displayText" : "",
-            "speech" : "",
-            "data" : ""
+            "speech" : "sorry, no data",
+            "data" : []
         },
         "5" : {
             "displayText" : "",
-            "speech" : "",
-            "data" : ""
+            "speech" : "sorry, no data",
+            "data" : []
         },
         "6" : {
             "displayText" : "",
-            "speech" : "",
-            "data" : ""
+            "speech" : "sorry, no data",
+            "data" : []
         },
         "7" : {
             "displayText" : "",
-            "speech" : "",
-            "data" : ""
+            "speech" : "sorry, no data",
+            "data" : []
         }
     }
 }
